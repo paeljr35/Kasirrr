@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +10,58 @@
       font-family: Arial, sans-serif;
       background: #f4f6f9;
     }
+    /* ===== Login ===== */
+#loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  /* Tambah background gambar */
+  background: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80") no-repeat center center/cover;
+  position: relative;
+}
+
+/* kasih overlay biar teks jelas */
+#loginPage::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+}
+
+.login-box {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== Menu Background ===== */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+
+  /* Tambah background gambar */
+  background: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* overlay tipis di main biar teks tetap jelas */
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 0;
+}
+
+.main > * {
+  position: relative;
+  z-index: 1;
+}
 
     /* ===== Login ===== */
     #loginPage {
@@ -169,16 +221,17 @@
     <!-- Header -->
     <div class="header">
   <h3>Menu Makanan & Minuman</h3>
-  <div style="text-align:right;">
-    <p style="margin:0; font-weight:bold;">📍 Jl. Merdeka No. 123, Bandung</p>
-    <p id="tanggalSekarang" style="margin:0; font-size:14px; color:#555;"></p>
-    <span>Hi, Everyone</span>
+  <div style="text-align:right; font-size:13px; line-height:1.4;">
+    <span>Hi, Everyone</span><br>
+    📍 Jl. Merdeka No.123, Bandung <br>
+    ☎ 0812-3456-7890 <br>
+    <span id="tanggalNow"></span>
   </div>
 </div>
 
     <!-- Main -->
     <div class="main">
-      <h2>️🍛 Menu Makanan</h2>
+      <h2>🍽️ Menu Makanan</h2>
       <div class="menu-grid" id="makananList"></div>
 
       <h2>🥤 Menu Minuman</h2>
@@ -240,21 +293,6 @@
       document.getElementById("password").value = "";
       document.getElementById("errorMsg").innerText = "";
     }
-    // ===== Tanggal otomatis di header =====
-function tampilkanTanggal(){
-  let today = new Date();
-  let tanggal = today.toLocaleDateString("id-ID", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-  let tglElem = document.getElementById("tanggalSekarang");
-  if(tglElem){
-    tglElem.textContent = tanggal;
-  }
 
     // ===== Menu Data =====
     const makanan = [
@@ -272,7 +310,7 @@ function tampilkanTanggal(){
       {nama:"Tahu Genjrot", harga:16000, img:"https://www.sajianlezat.com/media/image/bubur-sepinggan/tahu-gejrot__wm__.jpg"},
       {nama:"Dodol", harga:16500, img:"https://www.rumahmesin.com/wp-content/uploads/2020/08/Resep-Dodol-Jagung.jpg?x57460"},
       {nama:"Nasi Jamblang", harga:17000, img:"https://cdn-1.timesmedia.co.id/images/2023/06/03/Nasi-Jamblang-3.jpg"},
-      {nama:"Tape Ketan", harga:17500, img:"https://www.resepkekinian.com/wp-content/uploads/2020/05/Tape-Ketan-Hitam.jpg"},
+      {nama:"Tape Ketan", harga:17500, img:"https://budayabali.com/uploads/images/202411/image_870x_6725a087b5bc9.jpg"},
       {nama:"Cilok", harga:18000, img:"https://whattocooktoday.com/wp-content/uploads/2020/11/cilok-20-1024x1536.jpg"},
       {nama:"Sate Maranngi", harga:18500, img:"https://www.dapurkobe.co.id/wp-content/uploads/sate-maranggi.jpg"},
       {nama:"Cilok", harga:19000, img:"https://i.pinimg.com/originals/6a/b6/48/6ab648e446b78426f0c81c907bcbc11f.jpg"},
@@ -286,31 +324,31 @@ function tampilkanTanggal(){
     ];
 
     const minuman = [
-      {nama:"Minuman 1", harga:5300, img:"https://via.placeholder.com/200x120?text=Minuman+1"},
-      {nama:"Minuman 2", harga:5600, img:"https://via.placeholder.com/200x120?text=Minuman+2"},
-      {nama:"Minuman 3", harga:5900, img:"https://via.placeholder.com/200x120?text=Minuman+3"},
-      {nama:"Minuman 4", harga:6200, img:"https://via.placeholder.com/200x120?text=Minuman+4"},
-      {nama:"Minuman 5", harga:6500, img:"https://via.placeholder.com/200x120?text=Minuman+5"},
-      {nama:"Minuman 6", harga:6800, img:"https://via.placeholder.com/200x120?text=Minuman+6"},
-      {nama:"Minuman 7", harga:7100, img:"https://via.placeholder.com/200x120?text=Minuman+7"},
-      {nama:"Minuman 8", harga:7400, img:"https://via.placeholder.com/200x120?text=Minuman+8"},
-      {nama:"Minuman 9", harga:7700, img:"https://via.placeholder.com/200x120?text=Minuman+9"},
-      {nama:"Minuman 10", harga:8000, img:"https://via.placeholder.com/200x120?text=Minuman+10"},
-      {nama:"Minuman 11", harga:8300, img:"https://via.placeholder.com/200x120?text=Minuman+11"},
-      {nama:"Minuman 12", harga:8600, img:"https://via.placeholder.com/200x120?text=Minuman+12"},
-      {nama:"Minuman 13", harga:8900, img:"https://via.placeholder.com/200x120?text=Minuman+13"},
-      {nama:"Minuman 14", harga:9200, img:"https://via.placeholder.com/200x120?text=Minuman+14"},
-      {nama:"Minuman 15", harga:9500, img:"https://via.placeholder.com/200x120?text=Minuman+15"},
-      {nama:"Minuman 16", harga:9800, img:"https://via.placeholder.com/200x120?text=Minuman+16"},
-      {nama:"Minuman 17", harga:10100, img:"https://via.placeholder.com/200x120?text=Minuman+17"},
-      {nama:"Minuman 18", harga:10400, img:"https://via.placeholder.com/200x120?text=Minuman+18"},
-      {nama:"Minuman 19", harga:10700, img:"https://via.placeholder.com/200x120?text=Minuman+19"},
-      {nama:"Minuman 20", harga:11000, img:"https://via.placeholder.com/200x120?text=Minuman+20"},
-      {nama:"Minuman 21", harga:11300, img:"https://via.placeholder.com/200x120?text=Minuman+21"},
-      {nama:"Minuman 22", harga:11600, img:"https://via.placeholder.com/200x120?text=Minuman+22"},
-      {nama:"Minuman 23", harga:11900, img:"https://via.placeholder.com/200x120?text=Minuman+23"},
-      {nama:"Minuman 24", harga:12200, img:"https://via.placeholder.com/200x120?text=Minuman+24"},
-      {nama:"Minuman 25", harga:12500, img:"https://via.placeholder.com/200x120?text=Minuman+25"}
+      {nama:"Es teh", harga:5300, img:"https://nilaigizi.com/assets/images/produk/produk_1578041377.jpg"},
+      {nama:"Es jeruk segar", harga:5600, img:"https://gratisongkir-storage.com/products/900x900/1bMEykl8CJK0.jpg"},
+      {nama:"Es kopi susu gula aren", harga:5900, img:"https://asset.kompas.com/crops/oHA_InWvgjNnNKDmm3TszdEj0e0=/0x0:1000x667/1200x800/data/photo/2020/07/26/5f1d9e3132c94.jpg"},
+      {nama:"Es cokelate premium", harga:6200, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1DJqEneAcKnEsm5HZL4SmZaIPkZn7XBOQFA&s"},
+      {nama:"Thai tea", harga:6500, img:"https://thai-foodie.com/wp-content/uploads/2024/09/thai-milk-tea-225x225.jpg"},
+      {nama:"Green tea latte", harga:6800, img:"https://langsungenak.com/wp-content/uploads/2017/04/Iced-Green-Tea-Latte-by-Uniqee-Picillaa-Prameswarii.jpg"},
+      {nama:"Matcha susu", harga:7100, img:"https://awsimages.detik.net.id/community/media/visual/2024/09/29/susu-oat-2.jpeg?w=1200"},
+      {nama:"Lemon tea dingin", harga:7400, img:"https://www.masakapahariini.com/wp-content/uploads/2022/06/lemon-tea-selasih.jpg"},
+      {nama:"Es susu regal", harga:7700, img:"https://storage.googleapis.com/bakingworld-web-production/blog/content/1644567567.png"},
+      {nama:"Es cappuccino cincau", harga:8000, img:"https://api.omela.com/storage/content-editor-images/1pH0nroeojxC0IRR9NkEaY0YCzz0vPnMzD3Mbegx.jpg"},
+      {nama:"Es susu stroberi", harga:8300, img:"https://www.melayupedia.com/foto_berita/2022/04/2022-04-18-menyegarkan-berikut-resep-es-susu-stroberi-untuk-santapan-berbuka-puasa.jpg"},
+      {nama:"Es susu cokelate milo", harga:8600, img:"https://images.tokopedia.net/img/cache/500-square/VqbcmM/2021/9/11/14500474-37c1-49da-be7a-60b203dc8382.jpg"},
+      {nama:"Es alpukat kocok", harga:8900, img:"https://assets.pasundanekspres.co/main/2023/08/Screenshot-2023-08-10-113508.jpg"},
+      {nama:"Es kelapa muda", harga:9200, img:"https://www.tokomesin.com/wp-content/uploads/2015/03/es-kelapa-muda-tokomesin.jpg"},
+      {nama:"Es campur mini", harga:9500, img:"https://assets.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p3/47/2025/03/04/maxresdefault-3-1505740574.jpg"},
+      {nama:"Jus mangga", harga:9800, img:"https://cdn.rri.co.id/berita/Madiun/t/1736402941776-Screenshot_2025-01-09_130848/m30dy7jka3byrzx.png"},
+      {nama:"Jus jambu merah", harga:10100, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtHxrk0GtXAZx_555As_7u03mhE9S4tbP86Q&s"},
+      {nama:"Jus alpukat", harga:10400, img:"https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/b697f3e1-cfdc-4f59-9845-fcabed300222_Go-Biz_20201023_145223.jpeg"},
+      {nama:"Jus semangka", harga:10700, img:"https://res.cloudinary.com/dk0z4ums3/image/upload/v1701055672/attached_image/10-manfaat-jus-semangka-tak-kalah-manis-dengan-rasanya.jpg"},
+      {nama:"Jus melon", harga:11000, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOOkqt_Fj9QtJ2tv5Yfj-RYtPwjpx6zGlWBQ&s"},
+      {nama:"Smoothie pisang susu", harga:11300, img:"https://assets.kelasfitness.com/ghost/2025/06/Smoothie-Pisang-alpukat.jpg"},
+      {nama:"Smoothie Berry Mix", harga:11600, img:"https://www.cubesnjuliennes.com/wp-content/uploads/2022/02/Mixed-Berry-Smoothie-Recipe.jpg"},
+      {nama:"Bubble Tea Brown Sugar", harga:11900, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQACH-tYPMHpLDyI15jyyP-xKSA80k9gyrXA&s"},
+      {nama:"Taro tea", harga:12200, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz_C6oX1YUQrNd_N6-RiYsnKGT9T98rl8m4g&s"},
+      {nama:"Lychee Tea", harga:12500, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs2JsVZRNRAhULT-f_kCjXDDXMVo92PFdB7A&s"}
     ];
 
     const makananList = document.getElementById("makananList");
@@ -389,31 +427,29 @@ function tampilkanTanggal(){
       tampilkanStruk();
     }
 
-// ===== Struk =====
-function tampilkanStruk(){
+    // ===== Struk =====
+    function tampilkanStruk(){
   let receipt = document.createElement("div");
   receipt.classList.add("receipt");
 
   // Ambil tanggal sekarang
   let today = new Date();
   let tanggal = today.toLocaleDateString("id-ID", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
+    weekday: "long", year: "numeric", month: "long", day: "numeric",
+    hour: "2-digit", minute: "2-digit"
   });
 
-  // Hitung pajak 10%
-  let pajak = total * 0.1;
-  let grandTotal = total + pajak;
+  let pajak = total * 0.1; // Pajak 10%
+  let totalBayar = total + pajak;
 
   let isi = `
     <h4>🧾 Rizki Resto</h4>
-    <p style="text-align:center; font-size:13px;">
-      📍 Jl. Merdeka No. 123, Bandung <br>
-      📅 ${tanggal}
+    <p style="text-align:center; font-size:13px; margin:5px 0;">
+      📍 Jl. Merdeka No.123, Bandung<br>
+      ☎ 0812-3456-7890
+    </p>
+    <p style="font-size:12px; text-align:right; margin-bottom:8px;">
+      ${tanggal}
     </p>
     <table>
       <tr><td><b>Item</b></td><td><b>Harga</b></td></tr>
@@ -424,10 +460,9 @@ function tampilkanStruk(){
   });
 
   isi += `
+      <tr><td><b>Pajak (10%)</b></td><td>Rp ${pajak.toLocaleString()}</td></tr>
     </table>
-    <p class="total">Subtotal: Rp ${total.toLocaleString()}</p>
-    <p class="total">Pajak (10%): Rp ${pajak.toLocaleString()}</p>
-    <p class="total">Grand Total: Rp ${grandTotal.toLocaleString()}</p>
+    <p class="total">Total Bayar: Rp ${totalBayar.toLocaleString()}</p>
     <p class="thanks">Terima kasih telah berbelanja di toko kami 🙏</p>
   `;
 
